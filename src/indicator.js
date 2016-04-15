@@ -1,39 +1,28 @@
 import details from './details';
+import quadrant from './quadrant';
 
-function getQuadrant(el) {
-    const elBounds = el.getBoundingClientRect();
-    const docBounds = document.body.getBoundingClientRect();
-    const west = (elBounds.left + elBounds.width / 2) < docBounds.width / 2;
-    let quadrant = 0;
-    if (west) quadrant = 1;
-    if (!west) quadrant = 2;
-    return quadrant;
+const indicatorSize = 30;
+
+function getTop(el) {
+  const { bottom, top } = el.getBoundingClientRect();
+  const quad = quadrant(el);
+  if (quad === 1 || quad === 2) {
+    return bottom - indicatorSize;
+  }
+  return top - (indicatorSize / 2);
 }
 
-function getTop(parent, el) {
-  const { bottom } = parent.getBoundingClientRect();
-  const { height } = el.getBoundingClientRect();
-  return bottom - (height / 2);
+function getLeft(el) {
+  const { left, width } = el.getBoundingClientRect();
+  const quad = quadrant(el);
+  if (quad === 2 || quad === 4) {
+    return left - indicatorSize;
+  }
+  return left + width + indicatorSize;
 }
 
-function getLeft(parent, el) {
-  const { left } = parent.getBoundingClientRect();
-  const { width } = el.getBoundingClientRect();
-  return left - (width / 2);
-}
-
-function styleIndicator(parent, el) {
-  console.log('Quad', getQuadrant(parent));
-  el.style.position = 'absolute';
-  el.style.zIndex = '99999999999999999';
-  el.style.height = '30px';
-  el.style.width = '30px';
-  el.style.opacity = '0';
-  el.style.top = `${getTop(parent, el)}px`;
-  el.style.left = `${getLeft(parent, el)}px`;
-  el.style.backgroundColor = 'rgba(255, 255, 255, 0.6)';
-  el.style.borderRadius = '50%';
-  el.style.cursor = 'pointer';
+function tap(obj) {
+  const el = obj;
   let reveal = true;
   let shrink = false;
   let opacity = 0;
@@ -41,7 +30,7 @@ function styleIndicator(parent, el) {
   let shadow = 0;
   setInterval(() => {
     if (reveal) {
-      if (opacity >= 1){
+      if (opacity >= 1) {
         setTimeout(() => {
           reveal = false;
           shrink = true;
@@ -51,12 +40,12 @@ function styleIndicator(parent, el) {
         el.style.opacity = `${opacity}`;
       }
     } else if (shrink) {
-      if (scale <= 0.85) {
+      if (scale <= 0.9) {
         setTimeout(() => {
           shrink = false;
-        }, 250);
+        }, 0);
       } else {
-        scale -= 0.001;
+        scale -= 0.01;
         el.style.transform = `scale(${scale}, ${scale})`;
       }
     } else {
@@ -79,16 +68,28 @@ function styleIndicator(parent, el) {
   return el;
 }
 
-function create(tourGuide, appendTarget) {
+function styleIndicator(parent, obj) {
+  let el = obj;
+  el.style.position = 'absolute';
+  el.style.zIndex = '99999999999999999';
+  el.style.height = `${indicatorSize}px`;
+  el.style.width = `${indicatorSize}px`;
+  el.style.opacity = '0';
+  el.style.top = `${getTop(parent, el)}px`;
+  el.style.left = `${getLeft(parent, el)}px`;
+  el.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+  el.style.borderRadius = '50%';
+  el.style.cursor = 'pointer';
+  el = tap(el);
+  return el;
+}
+
+function create(tourGuide) {
   for (const guide of tourGuide) {
     let indicator = document.createElement('div');
     indicator = styleIndicator(guide.el, indicator);
     indicator = details(guide.el, indicator);
-    if (appendTarget) {
-      document.getElementById(appendTarget).appendChild(indicator);
-    } else {
-      document.body.appendChild(indicator);
-    }
+    window.logixTourConfig.appendTarget.appendChild(indicator);
   }
 }
 

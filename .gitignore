@@ -34,3 +34,5 @@ node_modules
 
 # IGNORE THE DIST FOLDER FOR GIT DEPLOYMENTS
 dist
+
+.tgz

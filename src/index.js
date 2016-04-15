@@ -1,7 +1,8 @@
 import indicator from './indicator';
+import config from './config';
 
 export default {
-  runMe: function(prefix, appendTarget) {
+  runMe(prefix) {
     const els = document.querySelectorAll(`.${prefix}-tour`);
     const tourGuide = [];
     for (let i = 0; i < els.length; i++) {
@@ -10,6 +11,9 @@ export default {
         text: els[i].dataset.tourText,
       });
     }
-    indicator(tourGuide, appendTarget);
+    indicator(tourGuide);
+  },
+  setConfig(obj) {
+    config(obj);
   },
 };

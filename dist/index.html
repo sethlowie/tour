@@ -6,7 +6,11 @@
   </head>
   <script src="logix-tour.js"></script>
   <body>
-    <div class="myTarget sample-tour" data-tour-text="This is a pretty cool example">
+    <div
+      class="myTarget sample-tour"
+      data-tour-text="This is a pretty cool example"
+      data-tour-id="my unique id 123"
+    >
       I'm just a target
     </div>
   </body>
@@ -26,7 +30,11 @@
     }
   </style>
   <script>
-    logixTour.setConfig({ tap: false, dismiss: function () { console.log('dismiss Group One Stuff'); } });
+    logixTour.setConfig({
+      tap: false,
+      dismiss: function () { console.log('dismiss Group One Stuff'); },
+      onClose: function (el) { console.log(el.dataset.tourId); },
+    });
     logixTour.runMe('sample', 'Group One');
   </script>
 </html>

@@ -16,7 +16,13 @@ module.exports = {
         text: els[i].dataset.tourText,
       });
     }
-    indicator(tourGuide, title);
+    indicator(tourGuide, title, prefix);
+  },
+  killTour(prefix) {
+    const els = document.querySelectorAll(`.${prefix}-logix-tour-indicator`);
+    for (let i = 0; i < els.length; i++) {
+      window.logixTourConfig.appendTarget.removeChild(els[i]);
+    }
   },
   setConfig(obj) {
     config(obj);

@@ -39,7 +39,7 @@ function removePopUp() {
 function removePopUpAndClear(el, cb) {
   const otherPopUps = document.getElementById('logix-tour-popup');
   if (otherPopUps) window.logixTourConfig.appendTarget.removeChild(otherPopUps);
-  window.logixTourConfig.appendTarget.removeChild(el);
+  // window.logixTourConfig.appendTarget.removeChild(el);
   cb();
 }
 
@@ -58,6 +58,9 @@ export default function addEvent(parent, el, title) {
     popUp = stylePopUp(el, popUp);
     const removeThisPopUp = removePopUpAndClear.bind(this, el, () => {
       document.removeEventListener('click', removeThisPopUp);
+      if (window.logixTourConfig.onClose) {
+        window.logixTourConfig.onClose(parent);
+      }
     });
     document.addEventListener('click', removeThisPopUp);
     e.stopPropagation();

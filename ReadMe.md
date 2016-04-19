@@ -50,12 +50,22 @@ Currently Supports:
 ---
 ## Methods
 
-### runMe(_prefix_)
+### runMe(_prefix_, _title_)
 
 Use this to initialize your onboarding
 
 * prefix
 > this will run the tour on all elements with a class name of {prefix}-tour
+
+* title
+> this will set a title for the tour group you are about to run
+
+### killTour(_prefix_)
+
+This will remove all indicators for a particular Group
+
+* prefix
+> this will remove all indicators that where initialized with the same prefix
 
 ### setConfig(_config_object_)
 

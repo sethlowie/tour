@@ -4,6 +4,7 @@ function config(obj) {
       appendTarget: obj.appendTarget ? document.getElementById(obj.appendTarget) : document.body,
       tap: obj.tap,
       dismiss: obj.dismiss,
+      onClose: obj.onClose,
     };
   }
 }

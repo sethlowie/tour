@@ -72,7 +72,13 @@ var logixTour =
 	        text: els[i].dataset.tourText
 	      });
 	    }
-	    (0, _indicator2.default)(tourGuide, title);
+	    (0, _indicator2.default)(tourGuide, title, prefix);
+	  },
+	  killTour: function killTour(prefix) {
+	    var els = document.querySelectorAll('.' + prefix + '-logix-tour-indicator');
+	    for (var i = 0; i < els.length; i++) {
+	      window.logixTourConfig.appendTarget.removeChild(els[i]);
+	    }
 	  },
 	  setConfig: function setConfig(obj) {
 	    (0, _config2.default)(obj);
@@ -190,7 +196,7 @@ var logixTour =
 	  return el;
 	}
 
-	function create(tourGuide, title) {
+	function create(tourGuide, title, prefix) {
 	  var _iteratorNormalCompletion = true;
 	  var _didIteratorError = false;
 	  var _iteratorError = undefined;
@@ -203,6 +209,7 @@ var logixTour =
 	      indicator = styleIndicator(guide.el, indicator);
 	      indicator = (0, _details2.default)(guide.el, indicator, title);
 	      indicator = animate(indicator);
+	      indicator.className = prefix + '-logix-tour-indicator';
 	      window.logixTourConfig.appendTarget.appendChild(indicator);
 	    }
 	  } catch (err) {
@@ -280,7 +287,7 @@ var logixTour =
 	function removePopUpAndClear(el, cb) {
 	  var otherPopUps = document.getElementById('logix-tour-popup');
 	  if (otherPopUps) window.logixTourConfig.appendTarget.removeChild(otherPopUps);
-	  window.logixTourConfig.appendTarget.removeChild(el);
+	  // window.logixTourConfig.appendTarget.removeChild(el);
 	  cb();
 	}
 
@@ -301,6 +308,9 @@ var logixTour =
 	    popUp = stylePopUp(el, popUp);
 	    var removeThisPopUp = removePopUpAndClear.bind(_this, el, function () {
 	      document.removeEventListener('click', removeThisPopUp);
+	      if (window.logixTourConfig.onClose) {
+	        window.logixTourConfig.onClose(parent);
+	      }
 	    });
 	    document.addEventListener('click', removeThisPopUp);
 	    e.stopPropagation();
@@ -384,7 +394,8 @@ var logixTour =
 	    window.logixTourConfig = {
 	      appendTarget: obj.appendTarget ? document.getElementById(obj.appendTarget) : document.body,
 	      tap: obj.tap,
-	      dismiss: obj.dismiss
+	      dismiss: obj.dismiss,
+	      onClose: obj.onClose
 	    };
 	  }
 	}

@@ -87,12 +87,13 @@ function animate(obj) {
   return el;
 }
 
-function create(tourGuide, title) {
+function create(tourGuide, title, prefix) {
   for (const guide of tourGuide) {
     let indicator = document.createElement('div');
     indicator = styleIndicator(guide.el, indicator);
     indicator = details(guide.el, indicator, title);
     indicator = animate(indicator);
+    indicator.className = `${prefix}-logix-tour-indicator`;
     window.logixTourConfig.appendTarget.appendChild(indicator);
   }
 }

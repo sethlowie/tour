@@ -1,6 +1,6 @@
 {
   "name": "logix-tour",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Guide users through your most important features",
   "main": "./lib/index.js",
   "scripts": {

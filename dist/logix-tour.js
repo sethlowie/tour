@@ -287,7 +287,11 @@ var logixTour =
 	function removePopUpAndClear(el, cb) {
 	  var otherPopUps = document.getElementById('logix-tour-popup');
 	  if (otherPopUps) window.logixTourConfig.appendTarget.removeChild(otherPopUps);
-	  // window.logixTourConfig.appendTarget.removeChild(el);
+	  try {
+	    window.logixTourConfig.appendTarget.removeChild(el);
+	  } catch (err) {
+	    // DON'T WORRY ABOUT THROWING THIS
+	  }
 	  cb();
 	}
 

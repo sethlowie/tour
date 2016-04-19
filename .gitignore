@@ -35,4 +35,4 @@ node_modules
 # IGNORE THE DIST FOLDER FOR GIT DEPLOYMENTS
 lib
 
-.tgz
+*.tgz

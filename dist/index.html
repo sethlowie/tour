@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Test My Module</title>
+  </head>
+  <script src="logix-tour.js"></script>
+  <body>
+    <div class="myTarget sample-tour" data-tour-text="This is a pretty cool example">
+      I'm just a target
+    </div>
+  </body>
+  <style>
+    .myTarget {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: solid 2px;
+      border-radius: 5px;
+      padding: 15%;
+      background-color: #52BBBF;
+    }
+    body {
+      background-color: #EAEAEA;
+    }
+  </style>
+  <script>
+    logixTour.setConfig({ tap: false, dismiss: function () { console.log('dismiss Group One Stuff'); } });
+    logixTour.runMe('sample', 'Group One');
+  </script>
+</html>

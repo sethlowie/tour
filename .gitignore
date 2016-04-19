@@ -33,6 +33,6 @@ node_modules
 .node_repl_history
 
 # IGNORE THE DIST FOLDER FOR GIT DEPLOYMENTS
-dist
+lib
 
 .tgz

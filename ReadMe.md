@@ -64,17 +64,22 @@ Use this method to set global configs
 Current config options
 > * appendTarget
 
+> * tap
+
+> * dismiss
+
 ```javascript
   import tour from 'logix-tour';
 
   const config = {
     appendTarget: 'app', // your root element, defaults to document.body
+    tap: true, // runs the "tap" animation, defaults to false
+    dismiss: function () { console.log('dismiss it'); }, // set a callback to dismiss pop ups
   }
 
   tour.setConfig(config);
 ```
 
 ## COMING UP
-- Better styles
 - Angular support
 - More config options;

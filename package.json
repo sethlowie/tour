@@ -2,11 +2,10 @@
   "name": "logix-tour",
   "version": "0.2.0",
   "description": "Guide users through your most important features",
-  "main": "./dist/index.min.js",
+  "main": "./lib/index.js",
   "scripts": {
-    "build": "npm run bundle | npm run bundle-min",
-    "bundle": "webpack --config ./webpack/prod.config.babel.js",
-    "bundle-min": "webpack --config ./webpack/prod.min.config.babel.js",
+    "build": "babel src --out-dir lib | npm run bundle",
+    "bundle": "webpack --config ./webpack/library.config.babel.js",
     "lint": "eslint .",
     "prepublish": "npm run build",
     "test": "mocha"
@@ -34,8 +33,5 @@
     "eslint": "^2.8.0",
     "eslint-config-airbnb": "^7.0.0",
     "webpack": "^1.13.0"
-  },
-  "dependencies": {
-    "eslint-config-airbnb": "^7.0.0"
   }
 }

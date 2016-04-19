@@ -1,12 +1,11 @@
-import details from './details';
-import quadrant from './quadrant';
+import details from './popUp/details';
 
 const indicatorSize = 30;
 
 function getTop(el) {
   const { bottom, top } = el.getBoundingClientRect();
-  const quad = quadrant(el);
-  if (quad === 1 || quad === 2) {
+  const docHeight = window.innerHeight;
+  if (docHeight - bottom > 50) {
     return bottom - indicatorSize;
   }
   return top - (indicatorSize / 2);
@@ -14,8 +13,7 @@ function getTop(el) {
 
 function getLeft(el) {
   const { left, width } = el.getBoundingClientRect();
-  const quad = quadrant(el);
-  if (quad === 2 || quad === 4) {
+  if (left > 50) {
     return left - indicatorSize;
   }
   return left + width + indicatorSize;
@@ -69,26 +67,32 @@ function tap(obj) {
 }
 
 function styleIndicator(parent, obj) {
-  let el = obj;
+  const el = obj;
   el.style.position = 'absolute';
   el.style.zIndex = '99999999999999999';
   el.style.height = `${indicatorSize}px`;
   el.style.width = `${indicatorSize}px`;
-  el.style.opacity = '0';
+  el.style.opacity = '1';
   el.style.top = `${getTop(parent, el)}px`;
   el.style.left = `${getLeft(parent, el)}px`;
   el.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
   el.style.borderRadius = '50%';
   el.style.cursor = 'pointer';
-  el = tap(el);
   return el;
 }
 
-function create(tourGuide) {
+function animate(obj) {
+  let el = obj;
+  el = window.logixTourConfig.tap ? tap(el) : el;
+  return el;
+}
+
+function create(tourGuide, title) {
   for (const guide of tourGuide) {
     let indicator = document.createElement('div');
     indicator = styleIndicator(guide.el, indicator);
-    indicator = details(guide.el, indicator);
+    indicator = details(guide.el, indicator, title);
+    indicator = animate(indicator);
     window.logixTourConfig.appendTarget.appendChild(indicator);
   }
 }

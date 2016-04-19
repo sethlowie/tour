@@ -1,18 +1,13 @@
-import webpack from 'webpack';
 import { resolve } from 'path';
 
 const _root = resolve(__dirname, '..');
 const build = resolve(_root, 'dist');
 
 const prodPack = {
-  entry: {
-    index: [
-      './src/index.js',
-    ],
-  },
+  entry: './src/index.js',
   output: {
     path: build,
-    filename: '[name].min.js',
+    filename: 'logix-tour.js',
     libraryTarget: 'var',
     library: 'logixTour',
   },

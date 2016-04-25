@@ -1,24 +1,7 @@
-import quadrant from './../quadrant';
 import { buildTitle, buildContent, buildDismiss } from './buildStuff';
 
 function stylePopUp(parent, obj) {
   const el = obj;
-  const parentBounds = parent.getBoundingClientRect();
-  const elBounds = el.getBoundingClientRect();
-  const quad = quadrant(parent);
-  let top = parentBounds.top - elBounds.height / 2;
-  let left = 0;
-  if (quad === 1 || quad === 3) {
-    if (parentBounds.top < 50) {
-      top = parentBounds.top + elBounds.height / 2;
-    }
-    left = parentBounds.left + 40;
-  } else if (quad === 2 || quad === 4) {
-    if (window.innerHeight - parentBounds.bottom < 50) {
-      top = parentBounds.top - elBounds.height * 1.5;
-    }
-    left = parentBounds.left - elBounds.width - 10;
-  }
   el.style.position = 'absolute';
   el.style.border = 'solid 2px #D8D8D8';
   el.style.borderRadius = '5px';
@@ -26,8 +9,8 @@ function stylePopUp(parent, obj) {
   el.style.boxShadow = '0 0 1px 5000px rgba(0, 0, 0, 0.4)';
   el.style.padding = '15px 10px';
   el.style.zIndex = '99999999';
-  el.style.top = `${top}px`;
-  el.style.left = `${left}px`;
+  el.style.top = '50%';
+  el.style.left = '30px';
   return el;
 }
 
@@ -56,7 +39,7 @@ export default function addEvent(parent, el, title) {
     buildTitle(popUp, title);
     buildContent(popUp, text);
     buildDismiss(popUp);
-    parent.appendChild(popUp);
+    el.parentNode.insertBefore(popUp, el.nextSibling);
     popUp.style.width = '250px';
     popUp.style.minHeight = '50px';
     popUp = stylePopUp(el, popUp);

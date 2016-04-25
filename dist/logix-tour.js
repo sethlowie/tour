@@ -51,7 +51,7 @@ var logixTour =
 
 	var _indicator2 = _interopRequireDefault(_indicator);
 
-	var _config = __webpack_require__(5);
+	var _config = __webpack_require__(4);
 
 	var _config2 = _interopRequireDefault(_config);
 
@@ -217,32 +217,10 @@ var logixTour =
 	});
 	exports.default = addEvent;
 
-	var _quadrant = __webpack_require__(3);
-
-	var _quadrant2 = _interopRequireDefault(_quadrant);
-
-	var _buildStuff = __webpack_require__(4);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	var _buildStuff = __webpack_require__(3);
 
 	function stylePopUp(parent, obj) {
 	  var el = obj;
-	  var parentBounds = parent.getBoundingClientRect();
-	  var elBounds = el.getBoundingClientRect();
-	  var quad = (0, _quadrant2.default)(parent);
-	  var top = parentBounds.top - elBounds.height / 2;
-	  var left = 0;
-	  if (quad === 1 || quad === 3) {
-	    if (parentBounds.top < 50) {
-	      top = parentBounds.top + elBounds.height / 2;
-	    }
-	    left = parentBounds.left + 40;
-	  } else if (quad === 2 || quad === 4) {
-	    if (window.innerHeight - parentBounds.bottom < 50) {
-	      top = parentBounds.top - elBounds.height * 1.5;
-	    }
-	    left = parentBounds.left - elBounds.width - 10;
-	  }
 	  el.style.position = 'absolute';
 	  el.style.border = 'solid 2px #D8D8D8';
 	  el.style.borderRadius = '5px';
@@ -250,8 +228,8 @@ var logixTour =
 	  el.style.boxShadow = '0 0 1px 5000px rgba(0, 0, 0, 0.4)';
 	  el.style.padding = '15px 10px';
 	  el.style.zIndex = '99999999';
-	  el.style.top = top + 'px';
-	  el.style.left = left + 'px';
+	  el.style.top = '50%';
+	  el.style.left = '30px';
 	  return el;
 	}
 
@@ -282,7 +260,7 @@ var logixTour =
 	    (0, _buildStuff.buildTitle)(popUp, title);
 	    (0, _buildStuff.buildContent)(popUp, text);
 	    (0, _buildStuff.buildDismiss)(popUp);
-	    parent.appendChild(popUp);
+	    el.parentNode.insertBefore(popUp, el.nextSibling);
 	    popUp.style.width = '250px';
 	    popUp.style.minHeight = '50px';
 	    popUp = stylePopUp(el, popUp);
@@ -300,30 +278,6 @@ var logixTour =
 
 /***/ },
 /* 3 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	function getQuadrant(el) {
-	  var elBounds = el.getBoundingClientRect();
-	  var docBounds = document.body.getBoundingClientRect();
-	  var north = elBounds.top + elBounds.height / 2 < docBounds.height / 2;
-	  var west = elBounds.left + elBounds.width / 2 < docBounds.width / 2;
-	  var quadrant = 0;
-	  if (north && west) quadrant = 1;
-	  if (north && !west) quadrant = 2;
-	  if (!north && west) quadrant = 3;
-	  if (!north && !west) quadrant = 4;
-	  return quadrant;
-	}
-
-	exports.default = getQuadrant;
-
-/***/ },
-/* 4 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -361,7 +315,7 @@ var logixTour =
 	module.exports = buildStuff;
 
 /***/ },
-/* 5 */
+/* 4 */
 /***/ function(module, exports) {
 
 	"use strict";

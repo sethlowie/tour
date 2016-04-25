@@ -33,14 +33,14 @@ function stylePopUp(parent, obj) {
 
 function removePopUp() {
   const otherPopUps = document.getElementById('logix-tour-popup');
-  if (otherPopUps) window.logixTourConfig.appendTarget.removeChild(otherPopUps);
+  if (otherPopUps) otherPopUps.parentNode.removeChild(otherPopUps);
 }
 
 function removePopUpAndClear(el, cb) {
   const otherPopUps = document.getElementById('logix-tour-popup');
-  if (otherPopUps) window.logixTourConfig.appendTarget.removeChild(otherPopUps);
+  if (otherPopUps) otherPopUps.parentNode.removeChild(otherPopUps);
   try {
-    window.logixTourConfig.appendTarget.removeChild(el);
+    el.parentNode.removeChild(el);
   } catch (err) {
     // DON'T WORRY ABOUT THROWING THIS
   }
@@ -56,7 +56,7 @@ export default function addEvent(parent, el, title) {
     buildTitle(popUp, title);
     buildContent(popUp, text);
     buildDismiss(popUp);
-    window.logixTourConfig.appendTarget.appendChild(popUp);
+    parent.appendChild(popUp);
     popUp.style.width = '250px';
     popUp.style.minHeight = '50px';
     popUp = stylePopUp(el, popUp);

@@ -6,12 +6,14 @@
   </head>
   <script src="logix-tour.js"></script>
   <body>
-    <div
-      class="myTarget sample-tour"
-      data-tour-text="This is a pretty cool example"
-      data-tour-id="my unique id 123"
-    >
-      I'm just a target
+    <div class="myTarget">
+      <div
+        class="sample-tour"
+        data-tour-text="This is a pretty cool example"
+        data-tour-id="my unique id 123"
+      >
+        I'm just a target
+      </div>
     </div>
   </body>
   <style>
@@ -26,12 +28,12 @@
       background-color: #52BBBF;
     }
     body {
-      background-color: #EAEAEA;
+      background-color: #F9F9F9;
     }
   </style>
   <script>
     logixTour.setConfig({
-      tap: false,
+      tap: true,
       dismiss: function () { console.log('dismiss Group One Stuff'); },
       onClose: function (el) { console.log(el.dataset.tourId); },
     });

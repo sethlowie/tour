@@ -2,23 +2,6 @@ import details from './popUp/details';
 
 const indicatorSize = 30;
 
-function getTop(el) {
-  const { bottom, top } = el.getBoundingClientRect();
-  const docHeight = window.innerHeight;
-  if (docHeight - bottom > 50) {
-    return bottom - indicatorSize;
-  }
-  return top - (indicatorSize / 2);
-}
-
-function getLeft(el) {
-  const { left, width } = el.getBoundingClientRect();
-  if (left > 50) {
-    return left - indicatorSize;
-  }
-  return left + width + indicatorSize;
-}
-
 function tap(obj) {
   const el = obj;
   let reveal = true;
@@ -73,11 +56,12 @@ function styleIndicator(parent, obj) {
   el.style.height = `${indicatorSize}px`;
   el.style.width = `${indicatorSize}px`;
   el.style.opacity = '1';
-  el.style.top = `${getTop(parent, el)}px`;
-  el.style.left = `${getLeft(parent, el)}px`;
-  el.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+  el.style.backgroundColor = 'rgba(204, 204, 204, 0.2)';
+  el.style.border = 'solid 2px rgba(204, 204, 204, 1)';
   el.style.borderRadius = '50%';
   el.style.cursor = 'pointer';
+  el.style.left = '-15px';
+  el.style.top = '60%';
   return el;
 }
 
@@ -93,8 +77,8 @@ function create(tourGuide, title, prefix) {
     indicator = styleIndicator(guide.el, indicator);
     indicator = details(guide.el, indicator, title);
     indicator = animate(indicator);
-    indicator.className = `${prefix}-logix-tour-indicator`;
-    window.logixTourConfig.appendTarget.appendChild(indicator);
+    indicator.className = `${prefix}-logix-tour-indicator tour-active`;
+    guide.el.parentNode.insertBefore(indicator, guide.el.nextSibling);
   }
 }
 

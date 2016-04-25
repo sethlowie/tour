@@ -21,7 +21,7 @@ module.exports = {
   killTour(prefix) {
     const els = document.querySelectorAll(`.${prefix}-logix-tour-indicator`);
     for (let i = 0; i < els.length; i++) {
-      window.logixTourConfig.appendTarget.removeChild(els[i]);
+      els[i].parentNode.removeChild(els[i]);
     }
   },
   setConfig(obj) {

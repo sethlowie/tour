@@ -18,6 +18,12 @@ Currently Supports:
 
 ---
 
+### Notes
+
+> * Indicators are attached to the container, this can have undesired side effects if the container size and position are not set
+
+---
+
 ### Usage In React
 
 ```javascript
@@ -25,8 +31,8 @@ Currently Supports:
 
   class App extends Component {
     componentDidMount() {
-      // SET THE "APPEND TARGET" TO THE ID OF YOUR ELEMENT
-      tour.setConfig({ appendTarget: 'My_Awesome_List' });
+      // SET THE "TAP" ANIMATION TO TRUE
+      tour.setConfig({ tap: true });
       // CALL "RUN ME" WITH YOUR DESIRED PREFIX
       tour.runMe('mal')
     }
@@ -72,8 +78,6 @@ This will remove all indicators for a particular Group
 Use this method to set global configs
 
 Current config options
-> * appendTarget
-
 > * tap
 
 > * dismiss
@@ -82,7 +86,6 @@ Current config options
   import tour from 'logix-tour';
 
   const config = {
-    appendTarget: 'app', // your root element, defaults to document.body
     tap: true, // runs the "tap" animation, defaults to false
     dismiss: function () { console.log('dismiss it'); }, // set a callback to dismiss pop ups
   }

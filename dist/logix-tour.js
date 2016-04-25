@@ -103,31 +103,6 @@ var logixTour =
 
 	var indicatorSize = 30;
 
-	function getTop(el) {
-	  var _el$getBoundingClient = el.getBoundingClientRect();
-
-	  var bottom = _el$getBoundingClient.bottom;
-	  var top = _el$getBoundingClient.top;
-
-	  var docHeight = window.innerHeight;
-	  if (docHeight - bottom > 50) {
-	    return bottom - indicatorSize;
-	  }
-	  return top - indicatorSize / 2;
-	}
-
-	function getLeft(el) {
-	  var _el$getBoundingClient2 = el.getBoundingClientRect();
-
-	  var left = _el$getBoundingClient2.left;
-	  var width = _el$getBoundingClient2.width;
-
-	  if (left > 50) {
-	    return left - indicatorSize;
-	  }
-	  return left + width + indicatorSize;
-	}
-
 	function tap(obj) {
 	  var el = obj;
 	  var reveal = true;
@@ -182,11 +157,12 @@ var logixTour =
 	  el.style.height = indicatorSize + 'px';
 	  el.style.width = indicatorSize + 'px';
 	  el.style.opacity = '1';
-	  el.style.top = getTop(parent, el) + 'px';
-	  el.style.left = getLeft(parent, el) + 'px';
-	  el.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+	  el.style.backgroundColor = 'rgba(204, 204, 204, 0.2)';
+	  el.style.border = 'solid 2px rgba(204, 204, 204, 1)';
 	  el.style.borderRadius = '50%';
 	  el.style.cursor = 'pointer';
+	  el.style.left = '-15px';
+	  el.style.top = '60%';
 	  return el;
 	}
 
@@ -209,8 +185,8 @@ var logixTour =
 	      indicator = styleIndicator(guide.el, indicator);
 	      indicator = (0, _details2.default)(guide.el, indicator, title);
 	      indicator = animate(indicator);
-	      indicator.className = prefix + '-logix-tour-indicator';
-	      window.logixTourConfig.appendTarget.appendChild(indicator);
+	      indicator.className = prefix + '-logix-tour-indicator tour-active';
+	      guide.el.parentNode.insertBefore(indicator, guide.el.nextSibling);
 	    }
 	  } catch (err) {
 	    _didIteratorError = true;
@@ -286,9 +262,9 @@ var logixTour =
 
 	function removePopUpAndClear(el, cb) {
 	  var otherPopUps = document.getElementById('logix-tour-popup');
-	  if (otherPopUps) window.logixTourConfig.appendTarget.removeChild(otherPopUps);
+	  if (otherPopUps) otherPopUps.parentNode.removeChild(otherPopUps);
 	  try {
-	    window.logixTourConfig.appendTarget.removeChild(el);
+	    el.parentNode.removeChild(el);
 	  } catch (err) {
 	    // DON'T WORRY ABOUT THROWING THIS
 	  }

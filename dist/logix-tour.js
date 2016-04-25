@@ -77,7 +77,7 @@ var logixTour =
 	  killTour: function killTour(prefix) {
 	    var els = document.querySelectorAll('.' + prefix + '-logix-tour-indicator');
 	    for (var i = 0; i < els.length; i++) {
-	      window.logixTourConfig.appendTarget.removeChild(els[i]);
+	      els[i].parentNode.removeChild(els[i]);
 	    }
 	  },
 	  setConfig: function setConfig(obj) {
@@ -257,7 +257,7 @@ var logixTour =
 
 	function removePopUp() {
 	  var otherPopUps = document.getElementById('logix-tour-popup');
-	  if (otherPopUps) window.logixTourConfig.appendTarget.removeChild(otherPopUps);
+	  if (otherPopUps) otherPopUps.parentNode.removeChild(otherPopUps);
 	}
 
 	function removePopUpAndClear(el, cb) {
@@ -282,7 +282,7 @@ var logixTour =
 	    (0, _buildStuff.buildTitle)(popUp, title);
 	    (0, _buildStuff.buildContent)(popUp, text);
 	    (0, _buildStuff.buildDismiss)(popUp);
-	    window.logixTourConfig.appendTarget.appendChild(popUp);
+	    parent.appendChild(popUp);
 	    popUp.style.width = '250px';
 	    popUp.style.minHeight = '50px';
 	    popUp = stylePopUp(el, popUp);
@@ -372,7 +372,6 @@ var logixTour =
 	function config(obj) {
 	  if (window) {
 	    window.logixTourConfig = {
-	      appendTarget: obj.appendTarget ? document.getElementById(obj.appendTarget) : document.body,
 	      tap: obj.tap,
 	      dismiss: obj.dismiss,
 	      onClose: obj.onClose
